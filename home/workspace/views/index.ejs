@@ -1,0 +1,547 @@
+<html>
+    <head>
+        <title>Style user research</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+        <style>
+            .myBtn{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                width:200px;
+            }
+            
+            .checkbox_label{
+                font-size: 30px;
+            }
+            
+            input[type="checkbox"] {
+                transform:scale(3,3);
+                margin-left: 20px;
+                margin-bottom: 20px;
+            }
+            
+            #instruct_div{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                font-size: 22px;
+            }
+            
+            
+        </style>
+        <!--<script type="text/javascript" src="showImg.js"></script>-->
+    </head>
+    
+    <body>
+    <div class="container" id="instruct_div">
+        <h1>Instructions</h1>
+        <p>You are given three models each time, your task is to pick two models that are more similar in 
+        graphical style.  Graphical style is affected by many aspects, such as the <b style="color:blue">shape, 
+        size, color, patterns, genre of the model (e.g. sci-fi, cartoon, realistic, pixel-ish) and much more</b>. 
+        Those factors may contribute to the model’s graphical style to various extent for different models. 
+        Please make your selection based on the overall style compatibility, i.e. which two of the three 
+        models can <b style="color:blue">exist together more in harmony</b>, or which two models’ <b style="color:blue">graphical style are more consistent</b>.
+        
+
+<br/><br/>Note that the type of an object or the functionality of an object is <b>NOT</b> a part of the style.
+For example, a chair may be more style compatible with a bed than with another chair. An elm may be more 
+similar to an oak than to another elm in terms of style. Please keep this in mind when making selection. 
+Again, do <b style="color:red">NOT pick similarity based on the type and functionality of the model objects</b>. </p>
+        
+        <br/>
+        The task takes about 15 minutes, please do not refresh the page and finish in one sitting, thank you!
+        
+        <button id="teachBtn" onclick="startTeach()" class="btn btn-info myBtn btn-lg">Start example tests</button>
+    </div>
+
+    
+    <div id="teach_div" class="container" style="display:none; margin-top:40px; ">
+        <h3 style="margin-bottom: 30px">Which two objects would be most visually harmonious if used together in the same scene?</h3>
+        <span style="color:grey;">(This test aims at getting you familiar with the tasks.)</span></h3>
+        <h5>How to interact: <b style="color:blue;">Click</b> on the <b style="color:blue;">checkbox</b> or the <b style="color:blue;">image</b> 
+        to make selections. You can also <b style="color:blue;">press</b> "1", "2", "3" on the <b style="color:blue;">keyboard</b>. Click the button or press <b style="color:blue;">"enter"</b> to submit. (Notice that if your browser is Firefox, keyboard interaction may not be supported.)</h5>
+        <div id="teach_explain" style="display:none;"><p style="font-size:30px; color:blue;" id="teach_explainP">
+        Among the three trees, we consider <b>A</b> and <b>C</b> to be more similar than A and B or B and C. 
+        This is because A and C represents trees in a realistic way whereas option B is a lowpoly, unrealistic tree. 
+        </p></div>
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxA" class="checkbox_label">1</label>
+                    <input id="teach_checkBoxA" type="checkbox" class="my_checkbox" name="cb_name" value="img1">
+                </div>
+                <img onclick="teach_click(1)" id="teachImg1" src="2019/2019_TreeGif/Low Poly Forest - Karelia_0_0_0_Original_0@@@Bush_BringGreen_1.png.gif">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">2</label>
+                    <input id="teach_checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="img2">
+                </div>
+                <img onclick="teach_click(2)" id="teachImg2" src="2019/2019_TreeGif/Low Poly Tree Pack_29_0_0_Original_0@@@Tree Type5 04.png.gif">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxC" class="checkbox_label">3</label>
+                    <input id="teach_checkBoxC" type="checkbox" class="my_checkbox" name="cb_name" value="img3">
+                </div>
+                <img onclick="teach_click(3)" id="teachImg3" src="2019/2019_TreeGif/Trees Bundle_37_0_0_Original_0@@@pine 2.png.gif">
+            </div>
+        </div>
+        
+        <!--<button id="nextBtn" onclick="updateImg()" class="btn btn-info myBtn btn-lg" disabled>Next</button>-->
+        <button id="teachResBtn" onclick="getResult()" class="btn btn-info myBtn btn-lg" disabled>Get result</button>
+        <button id="teachNextBtn" onclick="teachNext()" class="btn btn-info myBtn btn-lg" style="display:none;">Get it, see next!</button>
+        <div id="startDiv" style="display:none;">
+            <button id="startBtn" onclick="start()" class="btn btn-info myBtn btn-lg">Start test</button>
+            <h3><b style="color:red">Caution</b>: do not refresh the web page after you start the test!</h3>
+            <br/>
+        </div>
+    </div>
+    
+    <div class="container" id="end_div" style="margin-top:100px; display:none;">
+        <h2>Thank you for participating!</h2>
+        <!--<form>-->
+            <!--Name:<br>-->
+            <!--<input type="text" name="name" id="user_name"><br>-->
+            <!--CS login:<br>-->
+            <!--<input type="text" name="cslogin" id="user_login"><br>-->
+            <!--E-mail:<br>-->
+            <!--<input type="text" name="email" id="user_email"><br>-->
+            <!--<button id="submitBtn" onclick="submitUserInfo()" class="btn btn-info">Submit</button>-->
+        <!--</form>-->
+        <h2>Your code is: </h2>
+        <h1 id="uuid"></h1>
+    </div>
+    
+    <div class="container" id="final_end_div" style="margin-top:100px; display:none;">
+        <h2>Have a good day!</h2>
+    </div>
+    
+    <div class="container" id="main_div" style="margin-top:100px; display:none;">
+        <h2 style="margin-bottom: 30px">Which two objects would be most visually harmonious if used together in the same scene?</h2>
+        <h2>There are only <span id="count" style="color:blue">20</span> left.</h2>
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxA" class="checkbox_label">1</label>
+                    <input id="checkBoxA" type="checkbox" class="my_checkbox" name="cb_name2" value="img1">
+                </div>
+                <img onclick="label_click(1)" id="img1" src="">
+                <h4 id="img1name"></h4>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">2</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name2" value="img2">
+                </div>
+                <img onclick="label_click(2)" id="img2" src="">
+                <h4 id="img2name"></h4>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxC" class="checkbox_label">3</label>
+                    <input id="checkBoxC" type="checkbox" class="my_checkbox" name="cb_name2" value="img3">
+                </div>
+                <img onclick="label_click(3)" id="img3" src="">
+                <h4 id="img3name"></h4>
+            </div>
+        </div>
+        <button id="nextBtn" onclick="updateImg(0)" class="btn btn-info myBtn btn-lg" disabled>Next</button>
+    </div>
+    
+    
+    <script type="text/javascript">
+    document.onkeydown = keyDown;
+
+    var allPath = <%- JSON.stringify(allPath) %>;
+    var uuid = <%- JSON.stringify(uuid) %>;
+    var soloPathIdx = <%- JSON.stringify(soloPathIdx) %>;
+    // console.log(category);
+    // allPath = shuffle(allPath);
+    
+    var index = 0;
+    var uniqueCode;
+    var enableKey = 0; //0:welcome page; 1:teach page; 2:label page
+    var btnStatus = 0; //0:start example test; 1:
+    var canClick = 0;
+    
+    //show();
+    
+    function teach_click(type){
+        if(type===1){
+            $("#teach_checkBoxA").trigger('click');
+        }else if(type===2){
+            $("#teach_checkBoxB").trigger('click');
+        }else if(type===3){
+            $("#teach_checkBoxC").trigger('click');
+        }
+    }
+    
+    function label_click(type){
+        if(type===1){
+            $("#checkBoxA").trigger('click');
+        }else if(type===2){
+            $("#checkBoxB").trigger('click');
+        }else if(type===3){
+            $("#checkBoxC").trigger('click');
+        }
+    }
+    
+    function keyDown() { 
+        var key = event.key;
+        
+        if(key === "Enter"){
+            if(btnStatus === 0){
+                startTeach();
+            }else if(btnStatus === 1 && canClick === 1){
+                getResult();
+            }else if(btnStatus === 2){
+                teachNext();
+            }else if(btnStatus === 10){
+                start();
+            }else if(btnStatus === 100  && canClick === 1){
+                updateImg(0);
+            }
+            // else if(btnStatus === -1){
+            //     submitUserInfo();
+            // }
+            return
+        }
+        if(enableKey === 1){
+            if(key==="1"){ //teach
+                $("#teach_checkBoxA").trigger('click');
+            }else if(key==="2"){
+                $("#teach_checkBoxB").trigger('click');
+            }else if(key==="3"){
+                $("#teach_checkBoxC").trigger('click');
+            }
+        }else if(enableKey === 2){
+            if(key==="1"){ //teach
+                $("#checkBoxA").trigger('click');
+            }else if(key==="2"){
+                $("#checkBoxB").trigger('click');
+            }else if(key==="3"){
+                $("#checkBoxC").trigger('click');
+            }
+        }
+　　 } 
+　　 
+　　 
+    //only allow to choose two checkboxes
+    $(":checkbox[name='cb_name2']").change(function(){
+      if ($(":checkbox[name='cb_name2']:checked").length == 2){                                              
+        $(':checkbox:not(:checked)').prop('disabled', true);
+        $("#nextBtn").prop("disabled",false);
+        canClick = 1;
+      }  
+      else{   
+        $(':checkbox:not(:checked)').prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+        canClick = 0;
+      }
+    });
+
+    //teach btn
+    $(":checkbox[name='cb_name']").change(function(){
+      if ($(":checkbox[name='cb_name']:checked").length == 2){                                              
+        $(':checkbox:not(:checked)').prop('disabled', true);
+        $("#teachResBtn").prop("disabled",false);
+        canClick = 1;
+      }  
+      else{   
+        $(':checkbox:not(:checked)').prop('disabled', false);
+        $("#teachResBtn").prop("disabled",true);
+        canClick = 0;
+      }
+    });
+    
+    
+    var all_rows = 100;
+    var count = 100;
+    var start_date, end_date;
+    var tutorial_triplet_idx = [];//[10,40,90];
+    var tutorialTrueAnw = 2;
+    var consis_contr_idx = [];// [11,31,45,61,81];
+    
+    function start(){
+        enableKey = 2;
+        btnStatus = 100;
+        canClick = 0;
+        start_date = new Date();
+        // console.log(start_date);
+        document.getElementById('teach_div').style.display = "none";
+        document.getElementById('main_div').style.display = "block";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        document.getElementById('count').innerHTML = count.toString();
+        $(":checkbox[name='cb_name2']").prop('disabled', false);
+        show();
+    }
+    
+    function startTeach(){
+        enableKey = 1;
+        btnStatus = 1;
+        canClick = 0;
+        $("#teachImg1").attr("src","2019/2019_TreeGif_woName/Coconut Palm Tree Pack_15_0_0_Original_0.png.gif");
+        $("#teachImg2").attr("src","2019/2019_TreeGif_woName/Free Trees_1_0_0_Original_0.png.gif");
+        $("#teachImg3").attr("src","2019/2019_TreeGif_woName/Fir Tree_1_0_0_Original_0.png.gif");
+        
+        document.getElementById('instruct_div').style.display = "none";
+        document.getElementById('teach_div').style.display = "block";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    
+    var gerResIndex = 1;
+    function getResult(){
+        if(gerResIndex===1){
+            btnStatus = 2;
+            document.getElementById('teach_explain').style.display = "block";
+            $("#teachImg1").css("border", "5px solid red");
+            $("#teachImg3").css("border", "5px solid red");
+            $("#teachResBtn").css("display", "none");
+            $("#teachNextBtn").css("display", "block");
+            $(":checkbox[name='cb_name']").prop('checked', false);
+            $(":checkbox[name='cb_name']").prop('disabled', true);
+        }
+        if(gerResIndex===2){
+            btnStatus = 10;
+            document.getElementById('teach_explain').style.display = "block";
+            $("#teachImg1").css("border", "5px solid red");
+            $("#teachImg2").css("border", "5px solid red");
+            $("#teachResBtn").css("display", "none");
+            $(":checkbox[name='cb_name']").prop('checked', false);
+            $(":checkbox[name='cb_name']").prop('disabled', true);
+            $("#startDiv").css("display", "block");
+        }
+    }
+    
+    function teachNext(){
+        canClick = 0;
+        $("#teachImg1").attr("src","vehicleGifSlow/MLowpoly Cars_0_0_0_Original_0.gif");
+        $("#teachImg2").attr("src","vehicleGifSlow/MLowpoly Cars_2_0_0_Original_0.gif");
+        $("#teachImg3").attr("src","vehicleGifSlow/Racing Cars Pack 1_0_0_0_Original_0.gif");
+        
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        $("#teachImg1").css("border", "0");
+        $("#teachImg3").css("border", "0");
+        $(":checkbox[name='cb_name']").prop('disabled', false);
+        document.getElementById('teach_explain').style.display = "none";
+        
+        document.getElementById('teach_explainP').innerHTML="Among the three vehicles, we consider car <b>A</b> and <b>B</b> to be more similar than A and C or B and C. This is because although A is a truck while B and C are cars, A and B are represented in a more cartoonish style whereas C is in a hand painted style. This example re-iterate the importance of not picking similarity based on object type, but focus more on graphical style.";
+        
+        $("#teachNextBtn").css("display", "none");
+        $("#teachResBtn").css("display", "block");
+        $("#teachResBtn").prop("disabled",true);
+        gerResIndex = 2;
+        btnStatus -= 1;
+    }
+    
+    function endTest(){
+        btnStatus = -1;
+        document.getElementById('main_div').style.display = "none";
+        document.getElementById('end_div').style.display = "block";
+        document.getElementById('uuid').innerHTML = uuid;
+    }
+    
+    function submitUserInfo(){
+        document.getElementById('end_div').style.display = "none";
+        document.getElementById('final_end_div').style.display = "block";
+        var user_name = document.getElementById('user_name').value;
+        var user_login = document.getElementById('user_login').value;
+        var user_email = document.getElementById('user_email').value;
+        $.ajax({
+            url: "/recordUser",
+            type: "POST",
+            // data: {allRecord : allRecord, uniqueCode : uniqueCode, category : category},
+            data: {
+                user_name : user_name, user_login : user_login, user_email : user_email}
+        });
+    }
+    
+    function show(){
+        canClick = 0;
+        // console.log(index);
+        if(tutorial_triplet_idx.includes(index)){
+            document.getElementById('img1').src = "2019/2019_TreeGif_woName/Coconut Palm Tree Pack_15_0_0_Original_0.png.gif";
+            document.getElementById('img2').src = "2019/2019_TreeGif_woName/Free Trees_1_0_0_Original_0.png.gif";
+            document.getElementById('img3').src = "2019/2019_TreeGif_woName/Fir Tree_1_0_0_Original_0.png.gif";
+        }else if(consis_contr_idx.includes(index)){
+            document.getElementById('img1').src = allPath[consis_contr_idx[0]][0]; 
+            document.getElementById('img2').src = allPath[consis_contr_idx[0]][1];
+            document.getElementById('img3').src = allPath[consis_contr_idx[0]][2];
+        }else{
+            document.getElementById('img1').src = allPath[index][0]; 
+            document.getElementById('img2').src = allPath[index][1];
+            document.getElementById('img3').src = allPath[index][2];
+        }
+        
+        // document.getElementById('img1name').innerHTML = name1;
+        // document.getElementById('img2name').innerHTML = name2;
+        // document.getElementById('img3name').innerHTML = name3;
+    }
+    
+    
+    function updateImg(type){//button is clicked
+        record(type);
+        count--;
+        document.getElementById('count').innerHTML = count.toString();
+        if(count == 0){
+            endTest();
+            passData();
+            return 0;
+        }
+        
+        $(":checkbox[name='cb_name2']").prop('checked', false);
+        $(":checkbox[name='cb_name2']").prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+        index += 1; // += 3
+        show();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    
+    var allRecord = [];
+    var tutorialSelection = [];//this stores the user's choice of "A-" to the tutorial's triplets.
+    var consistentSelection = new Map([[1, 0], [2, 0], [3, 0]]); 
+    function record(type){
+        if(type===0){
+            if(tutorial_triplet_idx.includes(index)){
+            // if(index===tutorial_triplet_idx[0] || index===tutorial_triplet_idx[1] || index===tutorial_triplet_idx[2]){//index of tutorial triplet
+                aMinus = "";
+                $('input[name="cb_name2"]:not(:checked)').each(function() {
+                    var imgId = this.value;
+                    if(imgId==="img1"){
+                        tutorialSelection.push(1);
+                    }
+                    if(imgId==="img2"){
+                        tutorialSelection.push(2);
+                    }
+                    if(imgId==="img3"){
+                        tutorialSelection.push(3);
+                    }
+                });
+                return;
+            }
+            
+            if(consis_contr_idx.includes(index)){
+            // if(index===consis_contr_idx[0] || index===consis_contr_idx[1] || index===consis_contr_idx[2]){//index of consistency control questions
+                $('input[name="cb_name2"]:not(:checked)').each(function() {
+                    var imgId = this.value;
+                    if(imgId==="img1"){
+                        consistentSelection.set(1, consistentSelection.get(1)+1);
+                    }
+                    if(imgId==="img2"){
+                        consistentSelection.set(2, consistentSelection.get(2)+1);
+                    }
+                    if(imgId==="img3"){
+                        consistentSelection.set(3, consistentSelection.get(3)+1);
+                    }
+                });
+                return;
+            }
+            
+            //real recording
+            var myRecord = [];
+            var imgIDs = [];
+
+            $('input[name="cb_name2"]:checked').each(function() {
+                var imgId = this.value;
+                if(imgId==="img1"){
+                    imgIDs.push(0);
+                }
+                if(imgId==="img2"){
+                    imgIDs.push(1);
+                }
+                if(imgId==="img3"){
+                    imgIDs.push(2);
+                }
+            });
+            
+            $('input[name="cb_name2"]:not(:checked)').each(function() {
+                var imgId = this.value;
+                if(imgId==="img1"){
+                    imgIDs.push(0);
+                }
+                if(imgId==="img2"){
+                    imgIDs.push(1);
+                }
+                if(imgId==="img3"){
+                    imgIDs.push(2);
+                }
+            });
+            
+            myRecord.push(allPath[index][imgIDs[0]]);
+            myRecord.push(allPath[index][imgIDs[1]]); //allPath[index+imgIDs[1]]
+            myRecord.push(allPath[index][imgIDs[2]]);
+            //myRecord: A, A+, A-
+            allRecord.push(myRecord);
+        }
+    }
+    
+    function passData(){
+        // if(allRecord.length === 0){
+        //     return 0;
+        // }
+        
+        var isGood = 1; //1 is good, 0 is bad
+        
+        end_date = new Date();
+        var time_diff = (end_date.getTime() - start_date.getTime())/1000;//seconds
+        var single_task_duration = time_diff / all_rows;
+        // console.log(single_task_duration);
+        if(single_task_duration < 3.5){//spend less than 4 seconds on simgle question
+            console.log("duration");
+            isGood = 0;
+        }
+        
+        // if(consistentSelection.get(1) >= 1 && consistentSelection.get(2) >= 1 && consistentSelection.get(3) >= 1){
+        //     console.log("consistentSelection");
+        //     isGood = 0;
+        // }
+        // if(tutorialSelection[0]!=tutorialTrueAnw || tutorialSelection[1]!=tutorialTrueAnw || tutorialSelection[2]!=tutorialTrueAnw){
+        //     console.log("tutorialSelection");
+        //     isGood = 0;
+        // }
+        
+        var myRecord = [];
+        myRecord.push("___");
+        myRecord.push("___"); //allPath[index+imgIDs[1]]
+        myRecord.push("___");
+        //myRecord: A, A+, A-
+        // allRecord.push(myRecord);
+        // console.log(allRecord);
+        
+        
+        $.ajax({
+            url: "/recordData",
+            type: "POST",
+            // data: {allRecord : allRecord, uniqueCode : uniqueCode, category : category},
+            data: {
+                allRecord : allRecord, isGood : isGood, uuid : uuid, soloPathIdx : soloPathIdx}
+        });
+    }
+    
+    function generateUniqueCode(){
+        return '_' + Math.random().toString(36).substr(2, 9);
+    }
+    
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+        
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+        
+        return array;
+    }
+    
+    </script>
+    </body>
+</html>

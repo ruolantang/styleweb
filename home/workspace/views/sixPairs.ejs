@@ -1,0 +1,525 @@
+<html>
+    <head>
+        <title>Style user research</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+        <style>
+            .myBtn{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                width:200px;
+            }
+            
+            .checkbox_label{
+                font-size: 30px;
+            }
+            
+            input[type="checkbox"] {
+                transform:scale(2,2);
+                margin-left: 10px;
+            }
+            
+            #instruct_div{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                font-size: 22px;
+            }
+            
+            #teach_div img{
+                width:50%;
+                padding:0 0 0 0;
+                margin:0 -5px 0 0;
+                border:0 0 0 0;
+            }
+            
+            #main_div img{
+                width:50%;
+                padding:0 0 0 0;
+                margin:0 -5px 0 0;
+                border:0 0 0 0;
+            }
+        </style>
+        <!--<script type="text/javascript" src="showImg.js"></script>-->
+    </head>
+    
+    <body>
+    <div class="container" id="instruct_div">
+        <h1>Instructions</h1>
+        <p>You are given three models each time, your task is to pick two models that are more similar in 
+        graphical style.  Graphical style is affected by many aspects, such as the <b style="color:blue">shape, 
+        size, color, patterns, genre of the model (e.g. sci-fi, cartoon, realistic, pixel-ish) and much more</b>. 
+        Those factors may contribute to the model’s graphical style to various extent for different models. 
+        Please make your selection based on the overall style compatibility, i.e. which two of the three 
+        models can <b style="color:blue">exist together more in harmony</b>, or which two models’ <b style="color:blue">graphical style are more consistent</b>.
+        
+
+<br/><br/>Note that the type of an object or the functionality of an object is <b>NOT</b> a part of the style.
+For example, a chair may be more style compatible with a bed than with another chair. An elm may be more 
+similar to an oak than to another elm in terms of style. Please keep this in mind when making selection. 
+Again, do <b style="color:red">NOT pick similarity based on the type and functionality of the model objects</b>. </p>
+
+        
+        <!--<p>For example, the below two models are considered to have <b style="color:blue">high style compatibility</b>.</p>-->
+        <!--<div class="row">-->
+        <!--    <div class="col-sm">-->
+        <!--        <img src="gif/119.gif">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <img src="gif/121.gif">-->
+        <!--    </div>-->
+        <!--</div>-->
+        
+        <!--<p>However, the below two models are considered to be <b style="color:red">dissimilar in style</b>.</p>-->
+        <!--<div class="row">-->
+        <!--    <div class="col-sm">-->
+        <!--        <img src="gif/119.gif">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <img src="gif/260.gif">-->
+        <!--    </div>-->
+        <!--</div>-->
+        
+        <br/>
+        
+        <button id="teachBtn" onclick="startTeach()" class="btn btn-info myBtn btn-lg">Start example tests</button>
+    </div>
+    
+    <!--<div class="container" id="teach_div" style="display:none; margin-top:30px; ">-->
+        <!--<p>Here are some examples to illustrate more about style similarity/compatibility:</p>-->
+        <!--<p>For example, for the below triplet, we consider <b style="color:blue">A and B</b> to be of similar style</p>-->
+        <!--<p>Among the three trees, we consider A and B to be more similar than A and C or B and C. This is because the way A and B represents trees in a coarse un-realistic way whereas tree C is a realistic tree.</p>-->
+        <!--<div class="row">-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>A</h3>-->
+        <!--        <img src="gif/119.gif" style="border:solid 3px black">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>B</h3>-->
+        <!--        <img src="gif/121.gif" style="border:solid 3px black">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>C</h3>-->
+        <!--        <img src="gif/260.gif">-->
+        <!--    </div>-->
+        <!--</div>-->
+        
+        <!--<br/>-->
+        <!--<p>For the below triplet, we consider <b style="color:blue">A and C</b> to be of similar style</p>-->
+        <!--<p>Among the three vehicles, we consider car A and C to be more similar than A and B or C and B. This is because although A is a truck while B and C are cars, A and C are represented in a more cartoonish style whereas B is in a hand painted style. This example re-iterate the importance of not picking similarity based on object type, but focus more on graphical style.</p>-->
+        <!--<div class="row">-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>A</h3>-->
+        <!--        <img src="vehicleGifSlow/MLowpoly Cars_0_0_0_Original_0.gif" style="border:solid 3px black">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>B</h3>-->
+        <!--        <img src="vehicleGifSlow/Racing Cars Pack 1_0_0_0_Original_0.gif">-->
+        <!--    </div>-->
+        <!--    <div class="col-sm">-->
+        <!--        <h3>C</h3>-->
+        <!--        <img src="vehicleGifSlow/MLowpoly Cars_2_0_0_Original_0.gif" style="border:solid 3px black">-->
+        <!--    </div>-->
+        <!--</div>-->
+        
+        
+        
+    <!--</div>-->
+    
+    <div id="teach_div" style="display:none; margin:20px 15px 0 15px; ">
+        <h3 style="margin-bottom: 20px">Select <span style="color:red;">two tuples</span> where the two models are <span style="color:blue;">visually harmonious</span> if used together in the same scene.
+        <span style="color:grey;">(These six are for teaching purposes)</span></h3>
+        <div id="teach_explain" style="display:none;"><p style="font-size:30px; color:blue;" id="teach_explainP">You should choose <b>B</b> and <b>D</b>. Because they show a high stylistic harmony under our judgement.</p></div>
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxA" class="checkbox_label">A</label>
+                    <input id="checkBoxA" type="checkbox" class="my_checkbox" name="cb_name" value="A">
+                </div>
+                <div id="tupleA">
+                    <img id="teachImg1" src="gif/121.gif">
+                    <img id="teachImg2" src="gif/344.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">B</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="B">
+                </div>
+                <div id="tupleB">
+                    <img id="teachImg3" src="gif/121.gif">
+                    <img id="teachImg4" src="gif/119.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">C</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="B">
+                </div>
+                <div id="tupleC">
+                    <img id="teachImg5" src="gif/121.gif">
+                    <img id="teachImg6" src="gif/334.gif">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxC" class="checkbox_label">D</label>
+                    <input id="checkBoxC" type="checkbox" class="my_checkbox" name="cb_name" value="C">
+                </div>
+                <div id="tupleD">
+                    <img id="teachImg7" src="gif/121.gif">
+                    <img id="teachImg8" src="gif/118.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxD" class="checkbox_label">E</label>
+                    <input id="checkBoxD" type="checkbox" class="my_checkbox" name="cb_name" value="D">
+                </div>
+                <div id="tupleE">
+                    <img id="teachImg9" src="gif/121.gif">
+                    <img id="teachImg10" src="gif/199.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">F</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="B">
+                </div>
+                <div id="tupleF">
+                    <img id="teachImg11" src="gif/121.gif">
+                    <img id="teachImg12" src="gif/262.gif">
+                </div>
+            </div>
+        </div>
+        
+        <!--<button id="nextBtn" onclick="updateImg()" class="btn btn-info myBtn btn-lg" disabled>Next</button>-->
+        <button id="teachResBtn" onclick="getResult()" class="btn btn-info myBtn btn-lg" disabled>Get result</button>
+        <button id="teachNextBtn" onclick="teachNext()" class="btn btn-info myBtn btn-lg" style="display:none;">Get it, see next!</button>
+        <div id="startDiv" style="display:none;">
+            <button id="startBtn" onclick="start()" class="btn btn-info myBtn btn-lg">Start test</button>
+            <h3><b style="color:red">Caution</b>: do not refresh the web page after you start the test!</h3>
+            <br/>
+        </div>
+    </div>
+    
+    <div class="container" id="end_div" style="margin-top:100px; display:none;">
+        <h2>Thank you for participating!</h2>
+        <h2>Your code is: </h2>
+        <h1>762947</h1>
+    </div>
+    
+    <!--<div class="container" id="main_div" style="margin-top:100px; display:none;">-->
+    <!--    <h2 style="margin-bottom: 30px">Which two objects would be most visually harmonious if used together in the same scene?</h2>-->
+    <!--    <h2>There are only <span id="count" style="color:blue">20</span> left.</h2>-->
+    <!--    <div class="row">-->
+    <!--        <div class="col-sm">-->
+    <!--            <div>-->
+    <!--                <label for="checkBoxA" class="checkbox_label">A</label>-->
+    <!--                <input id="checkBoxA" type="checkbox" class="my_checkbox" name="cb_name" value="img1">-->
+    <!--            </div>-->
+    <!--            <img id="img1" src="">-->
+    <!--        </div>-->
+    <!--        <div class="col-sm">-->
+    <!--            <div>-->
+    <!--                <label for="checkBoxB" class="checkbox_label">B</label>-->
+    <!--                <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="img2">-->
+    <!--            </div>-->
+    <!--            <img id="img2" src="">-->
+                <!--<button onclick="updateImg()" class="btn btn-info myBtn">Choose B</button>-->
+    <!--        </div>-->
+    <!--        <div class="col-sm">-->
+    <!--            <div>-->
+    <!--                <label for="checkBoxC" class="checkbox_label">C</label>-->
+    <!--                <input id="checkBoxC" type="checkbox" class="my_checkbox" name="cb_name" value="img3">-->
+    <!--            </div>-->
+    <!--            <img id="img3" src="">-->
+    <!--        </div>-->
+    <!--    </div>-->
+    
+    <div id="main_div" style="margin:20px 15px 0 15px; display:none;">
+        <h3 style="margin-bottom: 20px">Select <span style="color:red;">two tuples</span> where the two models are <span style="color:blue;">visually harmonious</span> if used together in the same scene.
+        </h3>
+        <h4>There are only <span id="count" style="color:blue">20</span> left.</h4>
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxA" class="checkbox_label">A</label>
+                    <input id="checkBoxA" type="checkbox" class="my_checkbox" name="cb_name2" value="A">
+                </div>
+                <div id="tupleA">
+                    <img id="img1" src="gif/121.gif">
+                    <img id="img2" src="gif/344.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">B</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name2" value="B">
+                </div>
+                <div id="tupleB">
+                    <img id="img3" src="gif/121.gif">
+                    <img id="img4" src="gif/119.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">C</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name2" value="B">
+                </div>
+                <div id="tupleC">
+                    <img id="img5" src="gif/121.gif">
+                    <img id="img6" src="gif/334.gif">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxC" class="checkbox_label">D</label>
+                    <input id="checkBoxC" type="checkbox" class="my_checkbox" name="cb_name2" value="C">
+                </div>
+                <div id="tupleD">
+                    <img id="img7" src="gif/121.gif">
+                    <img id="img8" src="gif/118.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxD" class="checkbox_label">E</label>
+                    <input id="checkBoxD" type="checkbox" class="my_checkbox" name="cb_name2" value="D">
+                </div>
+                <div id="tupleE">
+                    <img id="img9" src="gif/121.gif">
+                    <img id="img10" src="gif/199.gif">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">F</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name2" value="B">
+                </div>
+                <div id="tupleF">
+                    <img id="img11" src="gif/121.gif">
+                    <img id="img12" src="gif/262.gif">
+                </div>
+            </div>
+        </div>
+        
+
+        <button id="nextBtn" onclick="updateImg(0)" class="btn btn-info myBtn btn-lg" disabled>Next</button>
+        <!--<p style="font-size:25px">If you really can't decide, click the button below.</p>-->
+        <!--<button id="noneBtn" style="margin-left:50px" onclick="updateImg(1)" class="btn btn-secondary myBtn btn-lg">None is similar</button>-->
+
+    </div>
+    
+    <script type="text/javascript">
+    var allPath = <%- JSON.stringify(allPath) %>;
+    allPath = shuffle(allPath);
+    var index = 0;
+    //show();
+    
+    //only allow to choose two checkboxes
+    $(":checkbox[name='cb_name2']").change(function(){
+      if ($(":checkbox[name='cb_name2']:checked").length == 2){                                              
+        $(':checkbox:not(:checked)').prop('disabled', true);
+        $("#nextBtn").prop("disabled",false);
+      }  
+      else{   
+        $(':checkbox:not(:checked)').prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+      }
+    });
+
+    //teach btn
+    $(":checkbox[name='cb_name']").change(function(){
+      if ($(":checkbox[name='cb_name']:checked").length == 2){                                              
+        $(':checkbox:not(:checked)').prop('disabled', true);
+        $("#teachResBtn").prop("disabled",false);
+      }  
+      else{   
+        $(':checkbox:not(:checked)').prop('disabled', false);
+        $("#teachResBtn").prop("disabled",true);
+      }
+    });
+    var count = 7;
+    function start(){
+        document.getElementById('teach_div').style.display = "none";
+        document.getElementById('main_div').style.display = "block";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        document.getElementById('count').innerHTML = count.toString();
+        $(":checkbox[name='cb_name2']").prop('disabled', false);
+        show();
+    }
+    
+    function startTeach(){
+        document.getElementById('instruct_div').style.display = "none";
+        document.getElementById('teach_div').style.display = "block";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    
+    function endTest(){
+        document.getElementById('main_div').style.display = "none";
+        document.getElementById('end_div').style.display = "block";
+    }
+    
+    function show(){
+        document.getElementById('img1').src = 'vehicleGifSlow/'+allPath[index]; 
+        document.getElementById('img2').src = 'vehicleGifSlow/'+allPath[index+1];
+        document.getElementById('img3').src = 'vehicleGifSlow/'+allPath[index];
+        document.getElementById('img4').src = 'vehicleGifSlow/'+allPath[index+2]; 
+        document.getElementById('img5').src = 'vehicleGifSlow/'+allPath[index];
+        document.getElementById('img6').src = 'vehicleGifSlow/'+allPath[index+3];
+        document.getElementById('img7').src = 'vehicleGifSlow/'+allPath[index];
+        document.getElementById('img8').src = 'vehicleGifSlow/'+allPath[index+4];
+        document.getElementById('img9').src = 'vehicleGifSlow/'+allPath[index];
+        document.getElementById('img10').src = 'vehicleGifSlow/'+allPath[index+5];
+        document.getElementById('img11').src = 'vehicleGifSlow/'+allPath[index];
+        document.getElementById('img12').src = 'vehicleGifSlow/'+allPath[index+6];
+    }
+    
+    var gerResIndex = 1;
+    function getResult(){
+        if(gerResIndex===1){
+            document.getElementById('teach_explain').style.display = "block";
+            $("#tupleB").css("border", "5px solid red");
+            $("#tupleD").css("border", "5px solid red");
+            $("#teachResBtn").css("display", "none");
+            $("#teachNextBtn").css("display", "block");
+            $(":checkbox[name='cb_name']").prop('checked', false);
+            $(":checkbox[name='cb_name']").prop('disabled', true);
+        }
+        if(gerResIndex===2){
+            document.getElementById('teach_explain').style.display = "block";
+            $("#tupleA").css("border", "5px solid red");
+            $("#tupleE").css("border", "5px solid red");
+            $("#teachResBtn").css("display", "none");
+            $(":checkbox[name='cb_name']").prop('checked', false);
+            $(":checkbox[name='cb_name']").prop('disabled', true);
+            $("#startDiv").css("display", "block");
+        }
+    }
+    
+    function teachNext(){
+        $("#teachImg1").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg2").attr("src","vehicleGifSlow/Simple Cars Pack_11_0_0_Original_0.gif");
+        $("#teachImg3").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg4").attr("src","vehicleGifSlow/Cartoon Monster Truck_1_0_0_Original_0.gif");
+        $("#teachImg5").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg6").attr("src","vehicleGifSlow/Military Combat Vehicle_0_0_0_Original_0.gif");
+        $("#teachImg7").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg8").attr("src","vehicleGifSlow/Police Car Helicopter_1_0_0_Original_0.gif");
+        $("#teachImg9").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg10").attr("src","vehicleGifSlow/Simple Cars Pack_13_0_0_Original_0.gif");
+        $("#teachImg11").attr("src","vehicleGifSlow/Simple Cars Pack_12_0_0_Original_0.gif");
+        $("#teachImg12").attr("src","vehicleGifSlow/Steam Punk Kart_0_0_0_Original_0.gif");
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        $("#tupleB").css("border", "0");
+        $("#tupleD").css("border", "0");
+        $(":checkbox[name='cb_name']").prop('disabled', false);
+        document.getElementById('teach_explain').style.display = "none";
+        document.getElementById('teach_explainP').innerHTML="You should choose <b>A</b> and <b>E</b>. Because they show a high stylistic harmony under our judgement.";
+        $("#teachNextBtn").css("display", "none");
+        $("#teachResBtn").css("display", "block");
+        $("#teachResBtn").prop("disabled",true);
+        gerResIndex = 2;
+    }
+    
+    function updateImg(type){//button is clicked
+        record(type);
+        count--;
+        document.getElementById('count').innerHTML = count.toString();
+        if(count == 0){
+            //passData();
+            endTest();
+            return 0;
+        }
+        
+        $(":checkbox[name='cb_name2']").prop('checked', false);
+        $(":checkbox[name='cb_name2']").prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+        index += 7;
+        show();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    
+    var allRecord = [];
+    function record(type){
+        if(type===0){
+            var myRecord = [];
+            var imgIDs = [0,1,2];
+            $('input[name="cb_name"]:checked').each(function() {
+                var imgId = this.value;
+                var imgSrc;
+                if(imgId==="img1"){
+                    imgSrc = allPath[index];
+                    var idIndex = imgIDs.indexOf(0);
+                    imgIDs.splice(idIndex, 1);
+                }
+                if(imgId==="img2"){
+                    imgSrc = allPath[index+1];
+                    var idIndex = imgIDs.indexOf(1);
+                    imgIDs.splice(idIndex, 1);
+                }
+                if(imgId==="img3"){
+                    imgSrc = allPath[index+2];
+                    var idIndex = imgIDs.indexOf(2);
+                    imgIDs.splice(idIndex, 1);
+                }
+                //var imgSrc = document.getElementById(imgId).src;
+                //console.log(imgSrc);
+                myRecord.push(imgSrc);
+            });
+            myRecord.push(allPath[index+imgIDs[0]]);
+            //myRecord: A, A+, A-
+            allRecord.push(myRecord);
+        }
+    }
+    
+    function passData(){
+        if(allRecord.length === 0){
+            return 0;
+        }
+        // for(var i=0; i<allRecord.length; i++){
+        //     for(var j=0; j<allRecord[i].length; j++){
+        //         var str = allRecord[i][j];
+        //         console.log(str);
+        //     }
+        //     console.log('\n');
+        // }
+        
+        $.ajax({
+            url: "/record",
+            type: "POST",
+            data: {allRecord : allRecord}
+        });
+    }
+    
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+        
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+        
+        return array;
+    }
+    
+    </script>
+    </body>
+</html>

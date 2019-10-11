@@ -1,0 +1,212 @@
+<html>
+    <head>
+        <title>Style user research</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+        <style>
+            .myBtn{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                width:200px;
+            }
+            
+            .checkbox_label{
+                font-size: 30px;
+            }
+            
+            input[type="checkbox"] {
+                transform:scale(2,2);
+                margin-left: 10px;
+            }
+            
+            #instruct_div{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                font-size: 25px;
+            }
+        </style>
+        <!--<script type="text/javascript" src="showImg.js"></script>-->
+    </head>
+    
+    <body>
+    <div class="container" id="instruct_div">
+        <h1>Instructions</h1>
+        <p>In this test, you will need to decide whether two models look compatible in style. 
+            "Style compatibility" refers to the degree to which objects <b>exist together in harmony</b>.
+        </p>
+        <p>Please pay attention to the overall shape, shape of parts, color, and texture before providing your preferences.</p>
+        <p>For example, the below two models are considered to have <b style="color:blue">high style compatibility</b>.</p>
+        <div class="row">
+            <div class="col-sm">
+                <img src="gif/119.gif">
+            </div>
+            <div class="col-sm">
+                <img src="gif/121.gif">
+            </div>
+        </div>
+        
+        <p>However, the below two models are considered to be <b style="color:red">dissimilar in style</b>.</p>
+        <div class="row">
+            <div class="col-sm">
+                <img src="gif/119.gif">
+            </div>
+            <div class="col-sm">
+                <img src="gif/260.gif">
+            </div>
+        </div>
+        <h2><b style="color:red">Warning</b>: do not refresh the web page after you start the test!</h2>
+        <button id="startBtn" onclick="start()" class="btn btn-info myBtn btn-lg">Start test</button>
+
+    </div>
+    
+    <div class="container" id="main_div" style="margin-top:100px; display:none;">
+        <h2 style="margin-bottom: 30px">Select two tuples where the two models have high style compatibility.</h2>
+        <h2>There are only <span id="count" style="color:blue">20</span> left.</h2>
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxA" class="checkbox_label">A</label>
+                    <input id="checkBoxA" type="checkbox" class="my_checkbox" name="cb_name" value="A">
+                </div>
+                <img id="img1" src="gif/1.gif">
+                <img id="img1" src="gif/4.gif" value="A">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxB" class="checkbox_label">B</label>
+                    <input id="checkBoxB" type="checkbox" class="my_checkbox" name="cb_name" value="B">
+                </div>
+                <img id="img2" src="gif/1.gif">
+                <img id="img2" src="gif/209.gif" value="B">
+                <!--<button onclick="updateImg()" class="btn btn-info myBtn">Choose B</button>-->
+            </div>
+            <!--<div class="col-sm">-->
+            <!--    <h2>C</h2>-->
+            <!--    <img id="img3" src="gif/3.gif">-->
+            <!--    <button onclick="updateImg()" class="btn btn-info myBtn">Choose C</button>-->
+                <!--<form action="/" method="POST"><button formaction="/C" class="btn btn-info myBtn">Choose C</button></form>-->
+            <!--</div>-->
+        </div>
+        
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxC" class="checkbox_label">C</label>
+                    <input id="checkBoxC" type="checkbox" class="my_checkbox" name="cb_name" value="C">
+                </div>
+                <img id="img1" src="gif/1.gif">
+                <img id="img1" src="gif/46.gif" value="C">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxD" class="checkbox_label">D</label>
+                    <input id="checkBoxD" type="checkbox" class="my_checkbox" name="cb_name" value="D">
+                </div>
+                <img id="img2" src="gif/1.gif">
+                <img id="img2" src="gif/52.gif" value="D">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxE" class="checkbox_label">E</label>
+                    <input id="checkBoxE" type="checkbox" class="my_checkbox" name="cb_name" value="E">
+                </div>
+                <img id="img1" src="gif/1.gif">
+                <img id="img1" src="gif/24.gif" value="E">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <label for="checkBoxF" class="checkbox_label">F</label>
+                    <input id="checkBoxF" type="checkbox" class="my_checkbox" name="cb_name" value="F">
+                </div>
+                <img id="img2" src="gif/1.gif">
+                <img id="img2" src="gif/32.gif" value="F">
+            </div>
+        </div>
+        <button id="nextBtn" onclick="updateImg()" class="btn btn-info myBtn btn-lg" disabled>Next</button>
+        
+    </div>
+    
+    <script type="text/javascript">
+    var allPath = <%- JSON.stringify(allPath) %>;
+    allPath = shuffle(allPath);
+    var index = 0;
+    //show();
+    
+    //only allow to choose two checkboxes
+    $(":checkbox[name='cb_name']").change(function(){
+      if ($(":checkbox[name='cb_name']:checked").length == 2){                                              
+        $(':checkbox:not(:checked)').prop('disabled', true);
+        $("#nextBtn").prop("disabled",false);
+      }  
+      else{   
+        $(':checkbox:not(:checked)').prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+      }
+    });
+
+    var count = 30;
+    function start(){
+        document.getElementById('instruct_div').style.display = "none";
+        document.getElementById('main_div').style.display = "block";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        document.getElementById('count').innerHTML = count.toString();
+
+    }
+    
+    function show(){
+        document.getElementById('img1').src = 'gif/1.gif'; //allPath[index];
+        document.getElementById('img2').src = allPath[index+1];
+    }
+    
+    function updateImg(){//button is clicked
+        if(index>100){//reach the limitation
+            alert("Hello! I am an alert box!!");
+        }
+        count--;
+        document.getElementById('count').innerHTML = count.toString();
+        
+        record();
+        $(":checkbox[name='cb_name']").prop('checked', false);
+        $(":checkbox[name='cb_name']").prop('disabled', false);
+        $("#nextBtn").prop("disabled",true);
+        index += 3;
+        show();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    
+    function record(){
+        $('input[name="cb_name"]:checked').each(function() {
+            var imgValue = this.value;
+            
+        });
+        var userRecord = {
+            "targetA" : index
+        }
+    }
+    
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+        
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+        
+        return array;
+    }
+    
+    </script>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Style user research</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+        <style>
+            .class{
+                border-style: solid;
+                border-color: red;
+            }
+        </style>
+    </head>
+    
+    <body>
+    
+    <div class="container" id="main_div" style="margin-top:100px;">
+        <h2>The person thinks image1 and image2 are more similar in style</h2>
+        <h3>Daniel's choice</h3>
+        <div class="row">
+            <div class="col-sm">
+                <img id="img1" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img2" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img3" src="" class="diff">
+            </div>
+        </div>
+        <h3>Yifan's choice</h3>
+        <div class="row">
+            <div class="col-sm">
+                <img id="img4" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img5" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img6" src="" class="diff">
+            </div>
+        </div>
+        <h3>Ruolan's choice</h3>
+        <div class="row">
+            <div class="col-sm">
+                <img id="img7" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img8" src="">
+            </div>
+            <div class="col-sm">
+                <img id="img9" src="" class="diff">
+            </div>
+        </div>
+        <button id="nextBtn" onclick="updateImg()" class="btn btn-info myBtn btn-lg">Next</button>
+    </div>
+    
+    <div class="container" id="end_div" style="margin-top:100px; display:none;">
+        <p>The end, thanks.</p>
+    </div>
+    
+    
+    <script type="text/javascript">
+    var allPath = <%- JSON.stringify(allPath) %>;
+    // allPath = shuffle(allPath);
+    idx = 0;
+    function show(){
+        document.getElementById('img1').src = allPath[idx][0]; 
+        document.getElementById('img2').src = allPath[idx][1];
+        document.getElementById('img3').src = allPath[idx][2];
+        idx ++;
+        document.getElementById('img4').src = allPath[idx][0]; 
+        document.getElementById('img5').src = allPath[idx][1];
+        document.getElementById('img6').src = allPath[idx][2];
+        idx ++;
+        document.getElementById('img7').src = allPath[idx][0]; 
+        document.getElementById('img8').src = allPath[idx][1];
+        document.getElementById('img9').src = allPath[idx][2];
+        idx ++;
+    }
+    show();
+    
+    function updateImg(){
+        if(idx < 102){
+            show();
+        }else{
+            document.getElementById('main_div').style.display = "none";
+            document.getElementById('end_div').style.display = "block";
+        }
+    }
+    
+    </script>
+    </body>
+</html>

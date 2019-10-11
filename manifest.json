@@ -1,0 +1,12 @@
+{
+  "name": "style",
+  "id": "6054058",
+  "description": "for user research",
+  "gitUrl": "",
+  "workspaceType": "nodejs",
+  "dockerBaseImage": "cloud9/ws-nodejs:2017-08-31T12-15-07Z",
+  "owner": {
+    "name": "ruolantang",
+    "id": "598663"
+  }
+}
